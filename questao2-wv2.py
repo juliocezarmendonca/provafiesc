@@ -49,19 +49,19 @@ vegetation_mask4 = cv2.merge([np.zeros_like(vegetation_mask4), vegetation_mask4,
 vegetation_mask5 = cv2.merge([np.zeros_like(vegetation_mask5), vegetation_mask5, np.zeros_like(vegetation_mask5)])
 
 # Redimensionar as imagens para 256x256
-resized_original = cv2.resize(cv2.merge([band5,band3,band2]), (1024, 1024))
-resized_segmented1 = cv2.resize(vegetation_mask1, (1024, 1024))
-resized_segmented2 = cv2.resize(vegetation_mask2, (1024, 1024))
-resized_segmented3 = cv2.resize(vegetation_mask3, (1024, 1024))
-resized_segmented4 = cv2.resize(vegetation_mask4, (1024, 1024))
-resized_segmented5 = cv2.resize(vegetation_mask5, (1024, 1024))
+resized_original = cv2.resize(cv2.merge([band5,band3,band2]), (256, 256))
+resized_segmented1 = cv2.resize(vegetation_mask1, (256, 256))
+resized_segmented2 = cv2.resize(vegetation_mask2, (256, 256))
+resized_segmented3 = cv2.resize(vegetation_mask3, (256, 256))
+resized_segmented4 = cv2.resize(vegetation_mask4, (256, 256))
+resized_segmented5 = cv2.resize(vegetation_mask5, (256, 256))
 
 # Converter a imagem RGB para o espaço de cor HSV
 hsv_image = cv2.cvtColor(resized_original, cv2.COLOR_BGR2HSV)
 
 # Definir os limites para a cor verde em HSV
-lower_green = np.array([36, 25, 25])  # Limite inferior para o verde
-upper_green = np.array([86, 255, 255])  # Limite superior para o verde
+lower_green = np.array([60, 108, 0])  # Limite inferior para o verde
+upper_green = np.array([123, 173, 98])  # Limite superior para o verde
 
 # Aplicar a máscara para segmentar a vegetação
 mask = cv2.inRange(hsv_image, lower_green, upper_green)
@@ -72,14 +72,20 @@ mask = cv2.bitwise_not(mask)
 # Redimensionar a máscara para 256x256
 resized_mask = cv2.resize(mask, (256, 256))
 
+
+output_path = 'rgb_image.jpg'
+cv2.imwrite(output_path, resized_original)
+
+
 # Exibir a máscara resultante
-cv2.imshow('Segmentação da Vegetação', resized_mask)
+cv2.imshow('Imagem Segmentada', resized_mask)
 
 
 
 
 # Exibir as imagens resultantes
 cv2.imshow('Imagem RGB', resized_original)
+
 #cv2.imshow('Imagem NDVI 1', resized_segmented1)
 #cv2.imshow('Imagem NDVI 2', resized_segmented2)
 #cv2.imshow('Imagem NDVI 3', resized_segmented3)
