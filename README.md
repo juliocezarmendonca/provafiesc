@@ -22,4 +22,5 @@ Arquivos utilizados durante o teste técnico para vaga de Pesquisador de Visão 
 
 ## Como utilizar
 - Importar o arquivo da collection no seu API Client de preferência
-- Testar as rotas de acordo com o teste
+- Rotas : /noise /airport /satelite
+- Passar arquivo json para a rota contendo {'imagem': 'string_imagem_decodificada_base64'}
